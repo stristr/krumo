@@ -854,7 +854,8 @@ This is a list of all the values from the <code><b><?php echo realpath($ini_file
 		// object ?
 		//
 		if (is_object($data)) {
-			return krumo::_object($data, $name);
+			// return krumo::_object($data, $name);
+			$data = (array) $data;
 			}
 
 		// array ?
@@ -884,7 +885,8 @@ This is a list of all the values from the <code><b><?php echo realpath($ini_file
 					}
 				}
 
-			return krumo::_array($data, $name);
+                        $is_assoc = count( $data ) && ( array_keys( $data ) !== range( 0, count( $data ) - 1 ) );
+				return krumo::_array($data, $name, $is_assoc);
 			}
 
 		// resource ?
@@ -1026,7 +1028,7 @@ This is a list of all the values from the <code><b><?php echo realpath($ini_file
 	* @static
 	*/
 	Private Static Function _vars(&$data) {
-
+		$data = (array) $data;
 		$_is_object = is_object($data);
 
 		// test for references in order to
@@ -1159,7 +1161,7 @@ This is a list of all the values from the <code><b><?php echo realpath($ini_file
 	* @access private
 	* @static
 	*/
-	Private Static Function _array(&$data, $name) {
+	Private Static Function _array(&$data, $name, $is_assoc) {
 		$childCount = count($data);
 		$collapsed = krumo::_isCollapsed(self::$_level, count($data));
 		$elementClasses = ($childCount > 0) ? (
@@ -1174,11 +1176,11 @@ This is a list of all the values from the <code><b><?php echo realpath($ini_file
 		onMouseOut="krumo.out(this);">
 
 			<a class="krumo-name"><?php echo $name;?></a>
-			(<em class="krumo-type">Array, <strong class="krumo-array-length"><?php echo
+			(<em class="krumo-type"><?php if ( $is_assoc ) { ?>Object<?php } else { ?>Array, <strong class="krumo-array-length"><?php echo
 				(count($data)==1)
 					?("1 element")
 					:(count($data)." elements");
-				?></strong></em>)
+				?></strong><?php } ?></em>)
 
 
 			<?php
@@ -1234,7 +1236,7 @@ This is a list of all the values from the <code><b><?php echo realpath($ini_file
 
 			<a class="krumo-name"><?php echo $name;?></a>
 			(<em class="krumo-type">Object</em>)
-			<strong class="krumo-class"><?php echo get_class($data);?></strong>
+			<!--<strong class="krumo-class"><?php echo get_class($data);?></strong>-->
 	</div>
 
 	<?php $reflection = new ReflectionClass($data);
