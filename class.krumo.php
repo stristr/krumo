@@ -1176,7 +1176,7 @@ This is a list of all the values from the <code><b><?php echo realpath($ini_file
 		onMouseOut="krumo.out(this);">
 
 			<a class="krumo-name"><?php echo $name;?></a>
-			(<em class="krumo-type"><?php if ( $is_assoc ) { ?>Object<?php } else { ?>Array, <strong class="krumo-array-length"><?php echo
+			(<em class="krumo-type"><?php if ( $is_assoc ) { ?>Dictionary<?php } else { ?>Array, <strong class="krumo-array-length"><?php echo
 				(count($data)==1)
 					?("1 element")
 					:(count($data)." elements");
@@ -1235,7 +1235,7 @@ This is a list of all the values from the <code><b><?php echo realpath($ini_file
 		onMouseOut="krumo.out(this);">
 
 			<a class="krumo-name"><?php echo $name;?></a>
-			(<em class="krumo-type">Object</em>)
+			(<em class="krumo-type">Dictionary</em>)
 			<!--<strong class="krumo-class"><?php echo get_class($data);?></strong>-->
 	</div>
 
